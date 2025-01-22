@@ -1,7 +1,8 @@
 import {MediaItem} from 'hybrid-types/DBTypes';
-import MediaRow from './MediaRow';
-import SingleView from './SingleView';
+
+import SingleView from '../components/SingleView';
 import {useState} from 'react';
+import MediaRow from '../components/MediaRow';
 
 const mediaArray: MediaItem[] = [
   {
