@@ -9,21 +9,21 @@ type MediaItemProps = {
 const MediaRow = (props: MediaItemProps) => {
   const {item} = props;
   return (
-    <tr>
-      <td>
-        <img src={item.thumbnail || undefined} alt={item.title} />
-      </td>
-      <td>{item.title}</td>
-      <td>{item.description}</td>
-      <td>{new Date(item.created_at).toLocaleString('fi-FI')}</td>
-      <td>{item.filesize}</td>
-      <td>{item.media_type}</td>
-      <td>
-        <Link to="/single" state={{item}}>
-          View
-        </Link>
-      </td>
-    </tr>
+    <div className="recipe-card">
+      <img src={item.thumbnail || undefined} alt={item.title} />
+      <div className="recipe-card-info">
+        <div>{item.title}</div>
+        <div>{item.description}</div>
+        <div>{new Date(item.created_at).toLocaleString('fi-FI')}</div>
+        <div>{item.filesize}</div>
+        <div>{item.media_type}</div>
+        <div>
+          <Link to="/single" state={{item}}>
+            View
+          </Link>
+        </div>
+      </div>
+    </div>
   );
 };
 
