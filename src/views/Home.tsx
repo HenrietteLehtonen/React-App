@@ -10,12 +10,15 @@ const Home = () => {
     undefined,
   );
 
-  const getMedia = async () => {
-    const json = await fetchData<MediaItem[]>('test.json');
-    setMediaArray(json);
-  };
-
   useEffect(() => {
+    const getMedia = async () => {
+      try {
+        const json = await fetchData<MediaItem[]>('test.json');
+        setMediaArray(json);
+      } catch (error) {
+        console.error((error as Error).message);
+      }
+    };
     getMedia();
   }, []);
 
