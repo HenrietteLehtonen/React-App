@@ -1,6 +1,6 @@
 import {MediaItem} from 'hybrid-types/DBTypes';
 import SingleView from '../components/SingleView';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import MediaRow from '../components/MediaRow';
 import {fetchData} from '../lib/functions';
 
@@ -14,7 +14,10 @@ const Home = () => {
     const json = await fetchData<MediaItem[]>('test.json');
     setMediaArray(json);
   };
-  // getMedia();
+
+  useEffect(() => {
+    getMedia();
+  }, []);
 
   console.log(mediaArray);
 
