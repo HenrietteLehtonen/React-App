@@ -3,7 +3,7 @@ import {Link, Outlet} from 'react-router';
 export const Layout = () => {
   return (
     <>
-      <h1>My App</h1>
+      <h1 className="main-title">Reseptit jee</h1>
       <div>
         <nav>
           <ul>
