@@ -1,10 +1,10 @@
-import {MediaItem} from 'hybrid-types/DBTypes';
+import {MediaItemWithOwner} from 'hybrid-types/DBTypes';
 import {NavigateFunction, useLocation, useNavigate} from 'react-router';
 
 export const Single = () => {
   const navigate: NavigateFunction = useNavigate();
   const {state} = useLocation();
-  const item: MediaItem = state.item;
+  const item: MediaItemWithOwner = state.item;
   console.log(item);
   return (
     <>
@@ -23,6 +23,9 @@ export const Single = () => {
       )}
       <h1>{item.title}</h1>
       <h2>{item.description}</h2>
+      <p>
+        Media owner: <strong>{item.username}</strong>
+      </p>
     </>
   );
 };

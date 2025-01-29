@@ -70,6 +70,10 @@ nav a:hover {
   /* box-shadow: 0 0 0.5em rgba(83, 82, 82, 0.2); */
   /* transition: all 0.5s; */
 }
+
+.recipe-title {
+  font-weight: bold;
+}
 .recipe-card-info {
   padding: 1em;
   display: flex;
@@ -87,20 +91,6 @@ nav a:hover {
   object-fit: cover;
   border-top-left-radius: 1em;
   border-top-right-radius: 1em;
-}
-
-/* td button:hover,
-a:hover {
-  background-color: #111111;
-} */
-
-td a {
-  color: white;
-  text-decoration: none;
-  background-color: #363636;
-  color: white;
-  border: none;
-  padding: 0.5rem;
 }
 
 /* media item dialog */
