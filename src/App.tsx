@@ -6,6 +6,7 @@ import Upload from './views/Upload';
 import {Layout} from './components/Layout';
 import Single from './views/Single';
 import Example from './views/Example';
+import Login from './views/Login';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
             <Route path="/profile" element={<Profile />}></Route>
             <Route path="/upload" element={<Upload />}></Route>
             <Route path="/single" element={<Single />}></Route>
+            <Route path="/login" element={<Login />}></Route>
             <Route path="/example" element={<Example />}></Route>
           </Route>
         </Routes>

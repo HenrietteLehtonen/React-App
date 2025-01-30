@@ -17,6 +17,9 @@ export const Layout = () => {
               <Link to="/upload">Upload</Link>
             </li>
             <li>
+              <Link to="/Login">Login</Link>
+            </li>
+            <li>
               <Link to="/example">ex</Link>
             </li>
           </ul>
