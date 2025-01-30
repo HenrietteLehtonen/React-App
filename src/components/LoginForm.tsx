@@ -20,7 +20,7 @@ const LoginForm = () => {
       // jos kirjautuu -> tallennetaan token localStrorageen
       if (loginResult) {
         localStorage.setItem('token', loginResult.token);
-        // kun logastrorageen tallennettu -> redirect to home / profile yms
+        // kun logalstrorageen tallennettu -> redirect to home / profile yms
         navigate('/');
       }
     } catch (error) {
@@ -38,11 +38,11 @@ const LoginForm = () => {
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="UserWithLevelname">Username</label>
+          <label htmlFor="LoginUsername">Username</label>
           <input
             name="username"
             type="text"
-            id="UserWithLevelname"
+            id="LoginUsername"
             onChange={handleInputChange}
             autoComplete="username"
             // value={inputs.username} <- antais inputille suoraan usernamen / initialState

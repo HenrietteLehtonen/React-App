@@ -1,8 +1,8 @@
 import {MediaItemWithOwner, UserWithNoPassword} from 'hybrid-types/DBTypes';
 import {useState, useEffect} from 'react';
 import {fetchData} from '../lib/functions';
-import {Credentials} from '../types/LocalTypes';
-import {LoginResponse} from 'hybrid-types/MessageTypes';
+import {Credentials, RegisterCredentials} from '../types/LocalTypes';
+import {LoginResponse, UserResponse} from 'hybrid-types/MessageTypes';
 
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState<MediaItemWithOwner[]>([]);
@@ -49,6 +49,7 @@ const useAuthentication = () => {
   // funktioita mitä hook palauttaa
 
   const postLogin = async (credentials: Credentials) => {
+    // muista! muilla kuin get pyynnöillä tarvitaan options
     const options = {
       method: 'POST',
       body: JSON.stringify(credentials),
@@ -63,13 +64,43 @@ const useAuthentication = () => {
       console.error(error);
     }
   };
-
   // kun kutsutaaan hookkia ->> palautetaan toiminnallisuus
   return {postLogin};
 };
 
 const useUser = () => {
   // iplements auth/user server API
+
+  // hae käyttäjä ! huom! vaikka get -> tarvitaan options, koska taarvitaan headersiin bearer
+  const getUserByToken = async (token: string) => {
+    const options = {
+      headers: {Authorization: 'Bearer ' + token},
+    };
+    return await fetchData<UserResponse>(
+      import.meta.env.VITE_AUTH_API + '/users/token',
+      options,
+    );
+  };
+
+  // rekisteröinti
+  const postRegister = async (credentials: RegisterCredentials) => {
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(credentials),
+      headers: {'Content-Type': 'application/json'},
+    };
+    console.log(credentials);
+    try {
+      return await fetchData<UserResponse>(
+        import.meta.env.VITE_AUTH_API + '/users',
+        options,
+      );
+    } catch (error) {
+      console.error(error);
+      // throw new Error((error as Error).message);
+    }
+  };
+  return {getUserByToken, postRegister};
 };
 
 const useComments = () => {
