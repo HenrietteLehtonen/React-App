@@ -69,17 +69,19 @@ const useAuthentication = () => {
 };
 
 const useUser = () => {
-  // iplements auth/user server API
-
   // hae käyttäjä ! huom! vaikka get -> tarvitaan options, koska taarvitaan headersiin bearer
   const getUserByToken = async (token: string) => {
     const options = {
       headers: {Authorization: 'Bearer ' + token},
     };
-    return await fetchData<UserResponse>(
-      import.meta.env.VITE_AUTH_API + '/users/token',
-      options,
-    );
+    try {
+      return await fetchData<UserResponse>(
+        import.meta.env.VITE_AUTH_API + '/users/token',
+        options,
+      );
+    } catch (e) {
+      console.error((e as Error).message);
+    }
   };
 
   // rekisteröinti
