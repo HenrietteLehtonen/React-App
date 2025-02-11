@@ -21,27 +21,52 @@ export const Layout = () => {
       <h1 className="main-title">Reseptit jee</h1>
       <div>
         <nav>
-          <ul>
+          <ul className="m-0 flex list-none justify-end bg-stone-600 p-0">
             <li>
-              <Link to="/">Home</Link>
+              <Link
+                className="block p-4 text-center text-stone-50 hover:bg-stone-800"
+                to="/"
+              >
+                Home
+              </Link>
             </li>
 
             {user ? (
               <>
                 <li>
-                  <Link to="/profile">Profile</Link>
+                  <Link
+                    className="block p-4 text-center text-stone-50 hover:bg-stone-800"
+                    to="/profile"
+                  >
+                    Profile
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/upload">Upload</Link>
+                  <Link
+                    className="block p-4 text-center text-stone-50 hover:bg-stone-800"
+                    to="/upload"
+                  >
+                    Upload
+                  </Link>
                 </li>
 
                 <li>
-                  <Link to="/Logout">Logout</Link>
+                  <Link
+                    className="block p-4 text-center text-stone-50 hover:bg-stone-800"
+                    to="/Logout"
+                  >
+                    Logout
+                  </Link>
                 </li>
               </>
             ) : (
               <li>
-                <Link to="/Login">Login</Link>
+                <Link
+                  className="block p-4 text-center text-stone-50 hover:bg-stone-800"
+                  to="/Login"
+                >
+                  Login
+                </Link>
               </li>
             )}
           </ul>

@@ -2,10 +2,27 @@
 
 @layer base {
   /* perustyylit */
-  html {
+  :root {
     font-family: var(--font-sans);
     font-weight: var(--font-weight-normal);
     color: var(--color-stone-800);
-    background-color: var(--color-stone-50);
+    background-color: var(--color-stone-100);
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  #root {
+    max-width: var(--container-7xl);
+    margin: auto;
+    padding: calc(var(--spacing) * 8);
+  }
+  h1 {
+    font-size: var(--text-2xl);
+    color: var(--color-stone-800);
+  }
+  h2 {
+    font-size: var(--text-xl);
   }
 }
