@@ -1,11 +1,11 @@
 import React, {createContext, useState} from 'react';
 import {useAuthentication, useUser} from '../hooks/apiHooks';
-import {AuthContext, Credentials} from '../types/LocalTypes';
+import {AuthContextType, Credentials} from '../types/LocalTypes';
 import {useLocation, useNavigate} from 'react-router';
 import {UserWithNoPassword} from 'hybrid-types/DBTypes';
 import {UserResponse} from 'hybrid-types/MessageTypes';
 
-const UserContext = createContext<AuthContext | null>(null);
+const UserContext = createContext<AuthContextType | null>(null);
 
 const UserProvider = ({children}: {children: React.ReactNode}) => {
   const [user, setUser] = useState<UserWithNoPassword | null>(null);
@@ -15,19 +15,19 @@ const UserProvider = ({children}: {children: React.ReactNode}) => {
   const location = useLocation();
 
   // login, logout and autologin functions are here instead of components
-
   const handleLogin = async (credentials: Credentials) => {
     try {
       // TODO: post login credentials to API
-      const loginResult = await postLogin(credentials as Credentials);
+      const loginResult = await postLogin(credentials);
+      console.log('doLogin result', loginResult);
       // TODO: set token to local storage
       if (loginResult) {
         localStorage.setItem('token', loginResult.token);
-        // TODO: set user to state
-        setUser(loginResult.user);
-        // TODO: navigate to home
-        navigate('/');
       }
+      // TODO: set user to state
+      setUser(loginResult.user);
+      // TODO: navigate to home
+      navigate('/');
     } catch (e) {
       console.log((e as Error).message);
     }
@@ -36,8 +36,10 @@ const UserProvider = ({children}: {children: React.ReactNode}) => {
   const handleLogout = () => {
     try {
       // TODO: remove token from local storage
+      // setItem
       localStorage.removeItem('token');
-      // localStorage.clear() or clear
+      // ...or clear
+      // localStorage.clear();
       // TODO: set user to null
       setUser(null);
       // TODO: navigate to home
@@ -59,10 +61,9 @@ const UserProvider = ({children}: {children: React.ReactNode}) => {
       const userResponse: UserResponse = await getUserByToken(token);
       // TODO: set user to state
       setUser(userResponse.user);
+      // when page is refreshed, the user is redirected to origin
       const origin = location.state.from.pathname || '/';
       navigate(origin);
-      // TODO: navigate to home
-      navigate('/');
     } catch (e) {
       // alert('Token not valid');
       console.log((e as Error).message);

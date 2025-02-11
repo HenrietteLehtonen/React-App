@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 
 const useForm = (callback: () => void, initState: Record<string, string>) => {
   const [inputs, setInputs] = useState(initState);
@@ -14,7 +14,7 @@ const useForm = (callback: () => void, initState: Record<string, string>) => {
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     event.persist();
-    console.log(event.target.name, event.target.value);
+    // console.log(event.target.name, event.target.value);
     setInputs((inputs) => ({
       ...inputs,
       [event.target.name]: event.target.value,
@@ -25,6 +25,7 @@ const useForm = (callback: () => void, initState: Record<string, string>) => {
     handleSubmit,
     handleInputChange,
     inputs,
+    setInputs,
   };
 };
 

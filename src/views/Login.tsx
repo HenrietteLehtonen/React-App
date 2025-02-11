@@ -1,11 +1,24 @@
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
+import {useState} from 'react';
 
 const Login = () => {
+  const [displayRegister, setDisplayRegister] = useState<boolean>(false);
+
+  const toggleRegister = () => {
+    setDisplayRegister(!displayRegister);
+  };
+
   return (
     <>
-      <LoginForm />
-      <RegisterForm />
+      {displayRegister ? (
+        <RegisterForm />
+      ) : (
+        <LoginForm toggleRegister={toggleRegister} />
+      )}
+      <button onClick={toggleRegister}>
+        {displayRegister ? 'Login' : 'New User? Register'}
+      </button>
     </>
   );
 };

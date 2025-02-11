@@ -1,28 +1,7 @@
-import {useUser} from '../hooks/apiHooks';
-import {useEffect, useState} from 'react';
-import {UserWithNoPassword} from 'hybrid-types/DBTypes';
+import {useUserContext} from '../hooks/contextHooks';
 
 const Profile = () => {
-  // tarvitaat useState päivittämään
-  const [user, setUser] = useState<UserWithNoPassword | null>(null);
-  // mitä haetaan
-  const {getUserByToken} = useUser();
-
-  const getUser = async () => {
-    //haetaan token local storageesta
-    const token = localStorage.getItem('token');
-    //haetaan data jos token löytyy
-    if (token) {
-      const userResponse = await getUserByToken(token);
-      // "tallenna" käyttäjä
-      setUser(userResponse.user);
-    }
-  };
-
-  // käyteetään use effect
-  useEffect(() => {
-    getUser();
-  }, []);
+  const {user} = useUserContext();
 
   return (
     <>
