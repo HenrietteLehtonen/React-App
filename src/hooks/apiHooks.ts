@@ -2,6 +2,7 @@ import {
   MediaItemWithOwner,
   UserWithNoPassword,
   MediaItem,
+  Like,
 } from 'hybrid-types/DBTypes';
 import {useState, useEffect} from 'react';
 import {fetchData} from '../lib/functions';
@@ -167,25 +168,16 @@ const useUser = () => {
 
   // NIMI & EMAIL AVAILABLE
   const getUsernameAvailable = async (username: string) => {
-    try {
-      return await fetchData<AvailableResponse>(
-        import.meta.env.VITE_AUTH_API + '/users/username/' + username,
-      );
-    } catch (error) {
-      console.error(error);
-    }
+    return await fetchData<AvailableResponse>(
+      import.meta.env.VITE_AUTH_API + '/users/username/' + username,
+    );
   };
 
   const getEmailAvailable = async (email: string) => {
     // fetch from endpoint /users/email/:email
-    try {
-      return await fetchData<AvailableResponse>(
-        import.meta.env.VITE_AUTH_API + '/users/email/' + email,
-      );
-    } catch (error) {
-      console.log('Ei onnistuttu hakemaan emailia!');
-      console.error(error);
-    }
+    return await fetchData<AvailableResponse>(
+      import.meta.env.VITE_AUTH_API + '/users/email/' + email,
+    );
   };
 
   return {
@@ -196,8 +188,66 @@ const useUser = () => {
   };
 };
 
+// TYKKÄYKSET
+const useLike = () => {
+  const postLike = async (media_id: number, token: string) => {
+    // TODO: Send a POST request to /likes with object { media_id } and the token in the Authorization header.
+    const options = {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + token,
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({media_id}), //{media_id: media_id params -> reduced}
+    };
+    // TODO: return the data
+    return await fetchData<MessageResponse>(
+      import.meta.env.VITE_MEDIA_API + '/likes',
+      options,
+    );
+  };
+
+  const deleteLike = async (like_id: number, token: string) => {
+    // TODO: Send a DELETE request to /likes/:like_id with the token in the Authorization header.
+    const options = {
+      method: 'DELETE',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    };
+    // return the data
+    return await fetchData<MessageResponse>(
+      import.meta.env.VITE_MEDIA_API + '/likes/' + like_id,
+      options,
+    );
+  };
+
+  const getCountByMediaId = async (media_id: number) => {
+    // TODO: Send a GET request to /likes/count/:media_id to get the number of likes.
+    return await fetchData<{count: number}>(
+      import.meta.env.VITE_MEDIA_API + '/likes/count/' + media_id,
+    );
+  };
+
+  const getUserLike = async (media_id: number, token: string) => {
+    // TODO: Send a GET request to /likes/bymedia/user/:media_id to get the user's like on the media. -> tarvitaan options koska haetaan tietyn käyttäjän
+    const options = {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    };
+    return await fetchData<Like>(
+      import.meta.env.VITE_MEDIA_API + '/likes/bymedia/user/' + media_id,
+      options,
+    );
+  };
+
+  return {postLike, deleteLike, getCountByMediaId, getUserLike};
+};
+
 const useComments = () => {
   // TODO: iplement media/comments resource API connections
 };
 
-export {useMedia, useAuthentication, useUser, useComments, useFile};
+export {useMedia, useAuthentication, useUser, useComments, useFile, useLike};

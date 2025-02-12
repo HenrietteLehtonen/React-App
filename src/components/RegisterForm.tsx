@@ -37,17 +37,22 @@ const RegisterForm = (props: {toggleRegister: () => void}) => {
 
   useEffect(() => {
     const main = async () => {
+      // kutsu getUsernameAvailable apiHooksista
       try {
         if (inputs.username.length > 2) {
           const result = await getUsernameAvailable(inputs.username);
           setUserNameAvailable(result.available);
+        } else {
+          setUserNameAvailable(true);
         }
       } catch (error) {
-        console.error(error);
+        console.error((error as Error).message);
+        setUserNameAvailable(true);
       }
     };
+
     main();
-  }, [inputs.username]);
+  }, [inputs.username, getUsernameAvailable]);
 
   useEffect(() => {
     const main = async () => {

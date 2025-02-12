@@ -14,6 +14,7 @@ dist-ssr
 
 muistiinpanoja.txt
 juttui.txt
+reducer-esim.tsx
 
 # Editor directories and files
 .vscode/*

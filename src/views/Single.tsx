@@ -1,5 +1,6 @@
 import {MediaItemWithOwner} from 'hybrid-types/DBTypes';
 import {NavigateFunction, useLocation, useNavigate} from 'react-router';
+import Likes from '../components/Likes';
 
 export const Single = () => {
   const navigate: NavigateFunction = useNavigate();
@@ -28,7 +29,8 @@ export const Single = () => {
           <video src={item.filename} controls className="max-h-120" />
         )}
         <h2>{item.title}</h2>
-        <div className="flex flex-row gap-5 text-stone-500">
+        <div className="flex flex-row items-center gap-5 text-stone-500">
+          <Likes item={item} />
           <div>tähdet: 5</div>
           <div>kommentit: 5</div>
           <div>
