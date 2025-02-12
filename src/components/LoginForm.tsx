@@ -26,32 +26,48 @@ const LoginForm = (props: {toggleRegister: () => void}) => {
 
   return (
     <>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="LoginUsername">Username</label>
-          <input
-            name="username"
-            type="text"
-            id="LoginUsername"
-            onChange={handleInputChange}
-            autoComplete="username"
-            // value={inputs.username} <- antais inputille suoraan usernamen / initialState
-          />
-        </div>
-        <div>
-          <label htmlFor="loginpassword">Password</label>
-          <input
-            name="password"
-            type="password"
-            id="loginpassword"
-            onChange={handleInputChange}
-            autoComplete="current-password"
-          />
-        </div>
-        <button type="submit">Login</button>
-        <button onClick={toggleRegister}>register</button>
-      </form>
+      <div className="mx-auto my-10 flex w-4/5 flex-col items-center justify-center">
+        <h2 className="my-5 self-start">Login</h2>
+        <form onSubmit={handleSubmit} className="flex w-full flex-col gap-5">
+          <div className="flex flex-col">
+            <label htmlFor="LoginUsername">Username</label>
+            <input
+              className="my-2 rounded-md border border-emerald-600 p-2.5"
+              name="username"
+              type="text"
+              id="LoginUsername"
+              onChange={handleInputChange}
+              autoComplete="username"
+              required
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="loginpassword">Password</label>
+            <input
+              className="my-2 rounded-md border border-emerald-600 p-2.5"
+              name="password"
+              type="password"
+              id="loginpassword"
+              onChange={handleInputChange}
+              autoComplete="current-password"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="my-5 cursor-pointer rounded-3xl bg-emerald-600 p-2 text-stone-50 transition-all duration-300 ease-in-out hover:bg-emerald-800"
+          >
+            Login
+          </button>
+          <hr className="text-stone-300" />
+          <button
+            onClick={toggleRegister}
+            className="my-5 cursor-pointer rounded-3xl bg-emerald-600 p-2 text-stone-50 transition-all duration-300 ease-in-out hover:bg-emerald-800"
+          >
+            Rekisteröidy
+          </button>
+        </form>
+      </div>
     </>
   );
 };

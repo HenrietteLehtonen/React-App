@@ -18,13 +18,13 @@ export const Layout = () => {
 
   return (
     <>
-      <h1 className="main-title">Reseptit jee</h1>
+      <h1>Resepti Appi</h1>
       <div>
-        <nav>
-          <ul className="m-0 flex list-none justify-end bg-stone-600 p-0">
+        <nav className="w-full shadow-md">
+          <ul className="m-0 flex list-none justify-end pr-10">
             <li>
               <Link
-                className="block p-4 text-center text-stone-50 hover:bg-stone-800"
+                className="block p-4 text-center text-emerald-600 hover:bg-stone-800 hover:underline"
                 to="/"
               >
                 Home
@@ -35,7 +35,7 @@ export const Layout = () => {
               <>
                 <li>
                   <Link
-                    className="block p-4 text-center text-stone-50 hover:bg-stone-800"
+                    className="block p-4 text-center text-emerald-600 hover:bg-stone-800"
                     to="/profile"
                   >
                     Profile
@@ -43,7 +43,7 @@ export const Layout = () => {
                 </li>
                 <li>
                   <Link
-                    className="block p-4 text-center text-stone-50 hover:bg-stone-800"
+                    className="block p-4 text-center text-emerald-600 hover:bg-stone-800"
                     to="/upload"
                   >
                     Upload
@@ -52,7 +52,7 @@ export const Layout = () => {
 
                 <li>
                   <Link
-                    className="block p-4 text-center text-stone-50 hover:bg-stone-800"
+                    className="block p-4 text-center text-emerald-600 hover:bg-stone-800"
                     to="/Logout"
                   >
                     Logout
@@ -62,7 +62,7 @@ export const Layout = () => {
             ) : (
               <li>
                 <Link
-                  className="block p-4 text-center text-stone-50 hover:bg-stone-800"
+                  className="block p-4 text-center text-emerald-600 hover:bg-stone-800"
                   to="/Login"
                 >
                   Login

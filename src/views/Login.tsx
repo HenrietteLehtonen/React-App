@@ -12,13 +12,13 @@ const Login = () => {
   return (
     <>
       {displayRegister ? (
-        <RegisterForm />
+        <RegisterForm toggleRegister={toggleRegister} />
       ) : (
         <LoginForm toggleRegister={toggleRegister} />
       )}
-      <button onClick={toggleRegister}>
+      {/* <button onClick={toggleRegister}>
         {displayRegister ? 'Login' : 'New User? Register'}
-      </button>
+      </button> */}
     </>
   );
 };

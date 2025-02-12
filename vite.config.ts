@@ -6,8 +6,8 @@ import tailwindcss from '@tailwindcss/vite';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  // base: '/~henriele/hybrid-react-build/',
-  base: '',
+  base: '/~henriele/hybrid-react-build/',
+  // base: '',
   test: {
     environment: 'jsdom',
     globals: true,

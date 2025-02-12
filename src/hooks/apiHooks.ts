@@ -7,6 +7,7 @@ import {useState, useEffect} from 'react';
 import {fetchData} from '../lib/functions';
 import {Credentials, RegisterCredentials} from '../types/LocalTypes';
 import {
+  AvailableResponse,
   LoginResponse,
   MessageResponse,
   UploadResponse,
@@ -163,7 +164,36 @@ const useUser = () => {
       // throw new Error((error as Error).message);
     }
   };
-  return {getUserByToken, postRegister};
+
+  // NIMI & EMAIL AVAILABLE
+  const getUsernameAvailable = async (username: string) => {
+    try {
+      return await fetchData<AvailableResponse>(
+        import.meta.env.VITE_AUTH_API + '/users/username/' + username,
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getEmailAvailable = async (email: string) => {
+    // fetch from endpoint /users/email/:email
+    try {
+      return await fetchData<AvailableResponse>(
+        import.meta.env.VITE_AUTH_API + '/users/email/' + email,
+      );
+    } catch (error) {
+      console.log('Ei onnistuttu hakemaan emailia!');
+      console.error(error);
+    }
+  };
+
+  return {
+    getUserByToken,
+    postRegister,
+    getUsernameAvailable,
+    getEmailAvailable,
+  };
 };
 
 const useComments = () => {

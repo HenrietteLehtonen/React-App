@@ -19,9 +19,9 @@ const Home = () => {
       )}
 
       <h2>Reseptit</h2>
-      <h3>----- haku placeholder --------</h3>
+      <h3 className="my-5">----- haku placeholder --------</h3>
 
-      <div className="recipe-container">
+      <div className="flex flex-wrap justify-center gap-8">
         {mediaArray.map((mediaItem) => (
           <MediaRow
             key={mediaItem.media_id}

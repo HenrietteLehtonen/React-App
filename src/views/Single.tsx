@@ -8,24 +8,38 @@ export const Single = () => {
   console.log(item);
   return (
     <>
-      <h2>Single</h2>
       <button
+        className="mt-2 mb-2 cursor-pointer rounded-sm bg-emerald-500 p-1 text-stone-50"
         onClick={() => {
           navigate(-1);
         }}
       >
         Back
       </button>
-      {item.media_type.includes('image') ? (
-        <img src={item.filename} alt={item.title} />
-      ) : (
-        <video src={item.filename} controls />
-      )}
-      <h1>{item.title}</h1>
-      <h2>{item.description}</h2>
-      <p>
-        Media owner: <strong>{item.username}</strong>
-      </p>
+
+      <div className="flex flex-col items-center justify-center bg-[#fff]">
+        {item.media_type.includes('image') ? (
+          <img
+            className="max-h-120 w-fit"
+            src={item.filename}
+            alt={item.title}
+          />
+        ) : (
+          <video src={item.filename} controls className="max-h-120" />
+        )}
+        <h2>{item.title}</h2>
+        <div className="flex flex-row gap-5 text-stone-500">
+          <div>tähdet: 5</div>
+          <div>kommentit: 5</div>
+          <div>
+            Media owner: <strong>{item.username}</strong>
+          </div>
+        </div>
+        <p className="px-10 py-5">{item.description}</p>
+        <p>
+          Media owner: <strong>{item.username}</strong>
+        </p>
+      </div>
     </>
   );
 };
