@@ -4,6 +4,7 @@ import {useState} from 'react';
 import MediaRow from '../components/MediaRow';
 
 import {useMedia} from '../hooks/apiHooks';
+import Tags from '../components/Tags';
 
 const Home = () => {
   const [SelectedItem, setSelectedItem] = useState<
@@ -20,8 +21,9 @@ const Home = () => {
 
       <h2>Reseptit</h2>
       <h3 className="my-5">----- haku placeholder --------</h3>
+      <Tags />
 
-      <div className="flex flex-wrap justify-center gap-8">
+      <div className="my-4 flex flex-wrap justify-center gap-8">
         {mediaArray.map((mediaItem) => (
           <MediaRow
             key={mediaItem.media_id}

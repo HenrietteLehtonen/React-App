@@ -1,6 +1,8 @@
 import {MediaItemWithOwner} from 'hybrid-types/DBTypes';
 import {Link} from 'react-router';
 import {useUserContext} from '../hooks/contextHooks';
+import CommentCount from './CommentCount';
+import Ratings from './Ratings';
 
 type MediaItemProps = {
   item: MediaItemWithOwner;
@@ -10,6 +12,7 @@ type MediaItemProps = {
 const MediaRow = (props: MediaItemProps) => {
   const {user} = useUserContext();
   const {item} = props;
+
   return (
     <>
       <div>
@@ -26,9 +29,14 @@ const MediaRow = (props: MediaItemProps) => {
             />
             <div className="flex flex-col gap-2 p-4">
               <div className="font-bold">{item.title}</div>
-              <div>{item.description}</div>
+              {/* <div>{item.description}</div> */}
               <div>{new Date(item.created_at).toLocaleString('fi-FI')}</div>
               <div>{'Media owner: ' + item.username}</div>
+              <CommentCount item={item} />
+              <Ratings item={item} />
+              <p>media id: {item.media_id}</p>
+
+              {/* <Likes item={item} /> */}
             </div>
           </div>
         </Link>

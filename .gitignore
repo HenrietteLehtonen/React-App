@@ -15,6 +15,7 @@ dist-ssr
 muistiinpanoja.txt
 juttui.txt
 reducer-esim.tsx
+SingleView.tsx
 
 # Editor directories and files
 .vscode/*

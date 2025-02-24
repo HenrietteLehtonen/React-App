@@ -1,12 +1,20 @@
 import {MediaItemWithOwner} from 'hybrid-types/DBTypes';
 import {NavigateFunction, useLocation, useNavigate} from 'react-router';
 import Likes from '../components/Likes';
+import Comments from '../components/Comments';
+import CommentCount from '../components/CommentCount';
+import Ratings from '../components/Ratings';
+// import Tags from '../components/Tags';
 
 export const Single = () => {
   const navigate: NavigateFunction = useNavigate();
   const {state} = useLocation();
   const item: MediaItemWithOwner = state.item;
-  console.log(item);
+
+  console.log(item.media_id);
+
+  // Kommenttien tykkäykset
+
   return (
     <>
       <button
@@ -31,8 +39,9 @@ export const Single = () => {
         <h2>{item.title}</h2>
         <div className="flex flex-row items-center gap-5 text-stone-500">
           <Likes item={item} />
-          <div>tähdet: 5</div>
-          <div>kommentit: 5</div>
+          <Ratings item={item} />
+          <CommentCount item={item} />
+
           <div>
             Media owner: <strong>{item.username}</strong>
           </div>
@@ -41,6 +50,8 @@ export const Single = () => {
         <p>
           Media owner: <strong>{item.username}</strong>
         </p>
+        {/* tähän kommentti komponentti */}
+        <Comments item={item} />
       </div>
     </>
   );

@@ -1,8 +1,13 @@
+// BACKEND HAUT
+
 import {
   MediaItemWithOwner,
   UserWithNoPassword,
   MediaItem,
   Like,
+  Comment,
+  TagResult,
+  Tag,
 } from 'hybrid-types/DBTypes';
 import {useState, useEffect} from 'react';
 import {fetchData} from '../lib/functions';
@@ -180,11 +185,17 @@ const useUser = () => {
     );
   };
 
+  const getUserById = async (id: number) => {
+    return await fetchData<UserWithNoPassword>(
+      import.meta.env.VITE_AUTH_API + '/users/' + id,
+    );
+  };
   return {
     getUserByToken,
     postRegister,
     getUsernameAvailable,
     getEmailAvailable,
+    getUserById,
   };
 };
 
@@ -222,15 +233,16 @@ const useLike = () => {
     );
   };
 
+  // Tykkäyksien määrä
   const getCountByMediaId = async (media_id: number) => {
-    // TODO: Send a GET request to /likes/count/:media_id to get the number of likes.
+    // Send a GET request to /likes/count/:media_id to get the number of likes.
     return await fetchData<{count: number}>(
       import.meta.env.VITE_MEDIA_API + '/likes/count/' + media_id,
     );
   };
 
   const getUserLike = async (media_id: number, token: string) => {
-    // TODO: Send a GET request to /likes/bymedia/user/:media_id to get the user's like on the media. -> tarvitaan options koska haetaan tietyn käyttäjän
+    // Send a GET request to /likes/bymedia/user/:media_id to get the user's like on the media. -> tarvitaan options koska haetaan tietyn käyttäjän
     const options = {
       method: 'GET',
       headers: {
@@ -246,8 +258,94 @@ const useLike = () => {
   return {postLike, deleteLike, getCountByMediaId, getUserLike};
 };
 
-const useComments = () => {
-  // TODO: iplement media/comments resource API connections
+const useComment = () => {
+  const {getUserById} = useUser();
+  // iplement media/comments resource API connections
+
+  // lähetä kommentti
+  const postComment = async (
+    comment_text: string,
+    media_id: number,
+    token: string,
+  ) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + token,
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({media_id, comment_text}),
+    };
+    // TODO: return the data
+    return await fetchData<MessageResponse>(
+      import.meta.env.VITE_MEDIA_API + '/comments',
+      options,
+    );
+  };
+
+  const getCommentsByMediaId = async (media_id: number) => {
+    // Send a GET request to /comments/bymedia/:media_id to get the comments.
+    const comments = await fetchData<Comment[]>(
+      import.meta.env.VITE_MEDIA_API + '/comments/bymedia/' + media_id,
+    );
+    // Send a GET request to auth api and add username to all comments
+    const commentsWithUsername = await Promise.all<
+      Comment & {username: string}
+    >(
+      comments.map(async (comment) => {
+        const user = await getUserById(comment.user_id);
+        return {...comment, username: user.username};
+      }),
+    );
+    return commentsWithUsername;
+  };
+
+  // kommenttien määrä
+  const getCommentCountByMediaId = async (id: number) => {
+    return await fetchData<{count: number}>(
+      import.meta.env.VITE_MEDIA_API + '/comments/count/' + id,
+    );
+  };
+
+  return {postComment, getCommentsByMediaId, getCommentCountByMediaId};
 };
 
-export {useMedia, useAuthentication, useUser, useComments, useFile, useLike};
+// RATINGS
+
+const useRating = () => {
+  // ratingit per media
+  const getAverageRating = async (id: number) => {
+    return await fetchData<{average: number}>(
+      import.meta.env.VITE_MEDIA_API + '/ratings/average/' + id,
+    );
+  };
+
+  return {getAverageRating};
+};
+
+// TAGS
+
+const useTag = () => {
+  // all tags
+  const getAllTags = async () => {
+    return await fetchData<Tag[]>(import.meta.env.VITE_MEDIA_API + '/tags');
+  };
+  // all tags per media
+  const getTagsByMediaId = async (media_id: number) => {
+    return await fetchData<TagResult[]>(
+      import.meta.env.VITE_MEDIA_API + '/tags/bymedia/' + media_id,
+    );
+  };
+  return {getAllTags, getTagsByMediaId};
+};
+
+export {
+  useMedia,
+  useAuthentication,
+  useUser,
+  useComment,
+  useFile,
+  useLike,
+  useRating,
+  useTag,
+};

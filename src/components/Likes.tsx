@@ -1,6 +1,22 @@
 import {Like, MediaItemWithOwner} from 'hybrid-types/DBTypes';
 import {useEffect, useReducer} from 'react';
 import {useLike} from '../hooks/apiHooks';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faHeart} from '@fortawesome/free-solid-svg-icons';
+
+const testi = (
+  <span className="fa-layers fa-fw">
+    <FontAwesomeIcon icon={faHeart} className="text-emerald-600" />
+    <FontAwesomeIcon
+      icon={faHeart}
+      className="text-neutral-50"
+      transform="shrink-5"
+    />
+  </span>
+);
+const likedHeart = (
+  <FontAwesomeIcon icon={faHeart} className="text-emerald-600" />
+);
 
 type LikeState = {
   count: number; // yhteensä
@@ -59,7 +75,7 @@ const Likes = ({item}: {item: MediaItemWithOwner}) => {
 
   // get like count
   const getLikeCount = async () => {
-    // TODO: get like count and dispatch it to the state API hooks
+    // get like count and dispatch it to the state API hooks
     try {
       const countResponse = await getCountByMediaId(item.media_id);
       likeDispatch({type: 'setLikeCount', count: countResponse.count});
@@ -85,7 +101,7 @@ const Likes = ({item}: {item: MediaItemWithOwner}) => {
       }
       // If user has liked the media, delete the like. Otherwise, post the like.
       if (likeState.userLike) {
-        // delete the like and dispatch the new like count to the state. Dispatching is already done in the getLikes and getLikeCount functions.
+        // delete the like and dispatch the new like count to the state.
         // delete apihook käytetään poistamaan
         await deleteLike(likeState.userLike.like_id, token);
         // dispatch the new like COUNT to the state
@@ -93,7 +109,7 @@ const Likes = ({item}: {item: MediaItemWithOwner}) => {
         likeDispatch({type: 'like', like: null}); // vähennetään tykkäys
         likeDispatch({type: 'setLikeCount', count: likeState.count - 1}); // vähennetään tykkäysarvosta 1
       } else {
-        // TODO: post the like and dispatch the new like count to the state. Dispatching is already done in the getLikes and getLikeCount functions.
+        // post the like and dispatch the new like count to the state. Dispatching is already done in the getLikes and getLikeCount functions.
         await postLike(item.media_id, token);
         getLikes();
         getLikeCount();
@@ -105,13 +121,11 @@ const Likes = ({item}: {item: MediaItemWithOwner}) => {
 
   return (
     <>
-      <p>Likes: {likeState.count}</p>
-      <button
-        className="my-5 cursor-pointer rounded-3xl bg-emerald-600 p-2 text-stone-50 transition-all duration-300 ease-in-out hover:bg-emerald-800"
-        onClick={handleLike}
-      >
-        {likeState.userLike ? 'Unlike' : 'Like'}
+      <button className="cursor-pointer text-stone-500" onClick={handleLike}>
+        {likeState.userLike ? likedHeart : testi} {likeState.count}
+        {/* {likeState.userLike ? 'Unlike' : 'Like'} */}
       </button>
+      {/* <p>{likeState.count}</p> */}
     </>
   );
 };

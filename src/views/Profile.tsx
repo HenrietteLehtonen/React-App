@@ -10,12 +10,11 @@ const Profile = () => {
       {/* Ehdollinen renderöinti */}
       {user && (
         <>
-          <h3>Username: {user.username}</h3>
-          <h3>Email: {user.email}</h3>
-          <h3>User Level: {user.level_name}</h3>
-          <h3>
-            Created at: {new Date(user.created_at).toLocaleString('fi-FI')}
-          </h3>
+          <p>Username: {user.username}</p>
+          <p>Email: {user.email}</p>
+          <p>User Level: {user.level_name}</p>
+          <p>Created at: {new Date(user.created_at).toLocaleString('fi-FI')}</p>
+          <p>usr id {user.user_id}</p>
         </>
       )}
     </>

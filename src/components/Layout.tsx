@@ -1,7 +1,10 @@
 import {Link, Outlet} from 'react-router';
-
 import {useEffect} from 'react';
 import {useUserContext} from '../hooks/contextHooks';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faBookBookmark} from '@fortawesome/free-solid-svg-icons';
+
+const testi = <FontAwesomeIcon icon={faBookBookmark} />;
 
 export const Layout = () => {
   // jos käyttäjää ei ole kutsu handleAutoLogin
@@ -18,7 +21,7 @@ export const Layout = () => {
 
   return (
     <>
-      <h1>Resepti Appi</h1>
+      <h1>{testi} Resepti App</h1>
       <div>
         <nav className="w-full shadow-md">
           <ul className="m-0 flex list-none justify-end pr-10">
